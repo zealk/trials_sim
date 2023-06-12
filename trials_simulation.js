@@ -6,18 +6,19 @@ let reset_threshold = 5;
 for (let i = 0; i < iteration; i++) {
     let rounds = 0;
     let resets = 0;
-    let mercy = true;
+    let mercy = 2;
     let wins = 0;
     while (wins < 7) {
         let random = Math.floor(Math.random() * 100);
         if (random < win_rate) {
           wins++;
         } else {
-          if (mercy && wins >= reset_threshold) {
-            mercy = false;
-          } else {
+          if ((mercy == 2 && wins < reset_threshold) || mercy == 0) {
             wins = 0;
+            mercy = 2;
             resets ++;
+          } else {
+            mercy--;
           }
         }
         rounds++;
